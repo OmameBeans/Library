@@ -1,19 +1,3 @@
-//url:
-//problem name: 
-
-#include <bits/stdc++.h>
-#define REP(i,n) for (int i = 0; i < (n); ++i)
-template<class T> inline bool chmin(T& a, T b) {if (a > b) {a = b;return true;}return false;}
-template<class T> inline bool chmax(T& a, T b) {if (a < b) {a = b;return true;}return false;}
-using namespace std;
-using ll = long long;
-using P = pair<int,int>;
-using Pl = pair<long long,long long>;
-using veci = vector<int>;
-using vecl = vector<long>;
-using vecveci = vector<vector<int>>;
-using vecvecl = vector<vector<long long>>;
-
 struct UnionFind {
     vector <ll> par; // 各元の親を表す配列
     vector <ll> siz; // 素集合のサイズを表す配列(1 で初期化)
@@ -57,19 +41,3 @@ struct UnionFind {
         return siz[root(x)];
     }
 };
-
-int main() {
-    int N,Q; cin >> N >> Q;
-    UnionFind UF(N);
-    UF.init(N);
-    REP(i,Q) {
-        int p; cin >> p;
-        if(p == 0) {
-            int a,b; cin >> a >> b;
-            UF.merge(a,b);
-        } else {
-            int a,b; cin >> a >> b;
-            cout << (UF.issame(a,b) ? "Yes" : "No") << endl;
-        }
-    }
-}
