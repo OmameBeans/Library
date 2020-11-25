@@ -12,6 +12,8 @@ using vecveci = vector<vector<int>>;
 using vecvecl = vector<vector<long long>>;
 const int MOD = 1000000007;
 const double pi = acos(-1);
+ll gcd(ll a, ll b) {if(b == 0) return a; else return gcd(b,a%b);}
+ll lcm(ll a, ll b) {return a*b/gcd(a,b);}
 
 int main() {
     
