@@ -1,0 +1,40 @@
+ll MOD = 1e7 + 9;
+
+ll pow(ll a, ll n) {
+    ll ans = 1;
+    while(n > 0) {
+        if(n & 1) {
+            ans *= a;
+            ans %= MOD;
+        }
+        a *= a;
+        a %= MOD;
+        n >>= 1;
+    }
+    return ans;
+}
+
+
+ll modfact(ll n) {
+    ll ans = 1;
+    for(ll i = 0; i < n; i++) {
+        ans *= (n-i)%MOD;
+        ans %= MOD;
+    }
+    return ans;
+}
+
+ll modinv(ll n) {
+    return pow(n,MOD-2);
+}
+
+ll COM(ll n, ll k) {
+    if(k == 0) return 1;
+    ll ans = 1;
+    for(ll i = 0; i < k; i++) {
+        ans *= ((n-i))%MOD;
+        ans %= MOD;
+    }
+    ll b = modinv(modfact(k));
+    return (ans%MOD) * (b%MOD) %MOD;
+}
