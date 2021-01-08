@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+template <typename T>
+struct SqrtDecomposition {
+    const int sqrtN = 512;
+    //const T INF = numeric_limits<T>::max();
+    const T INF = (1L<<31)-1;
+    int N, K;
+    vector<T> data;
+    vector<T> bucketMin;
+    SqrtDecomposition(int n) : N(n) {
+        K = (N + sqrtN - 1) / sqrtN;
+        data.assign(K * sqrtN, INF);
+        bucketMin.assign(K, INF);
+    }
+
+    void update(int x, T y) {
+        int k = x / sqrtN;
+        T minVal = data[x] = y;
+        for (int i = k * sqrtN; i < (k + 1) * sqrtN; ++i) {
+        minVal = min(minVal, data[i]);
+        }
+        bucketMin[k] = minVal;
+    }
+
+    // [x, y)
+    int find(int x, int y) {
+        T minVal = INF;
+        for (int k = 0; k < K; ++k) {
+        int l = k * sqrtN, r = (k + 1) * sqrtN;
+        if (r <= x || y <= l)
+            continue;
+        if (x <= l && r <= y) {
+            minVal = min(minVal, bucketMin[k]);
+        } else {
+            for (int i = max(x, l); i < min(y, r); ++i) {
+            minVal = min(minVal, data[i]);
+            }
+        }
+        }
+        return minVal;
+    }
+    
+};
+
+int main() {
+    int N,Q; cin >> N >> Q;
+    SqrtDecomposition<ll> SD(N);
+    for(int i = 0; i < Q; i++) {
+        int c; cin >> c;
+        if(c == 0) {
+            int x;
+            ll y;
+            cin >> x >> y;
+            SD.update(x,y);
+        } else {
+            int l,r; cin >> l >> r;
+            cout << SD.find(l,r+1) << endl;
+        }
+    }
+}
